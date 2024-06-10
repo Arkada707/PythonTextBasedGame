@@ -26,7 +26,7 @@ pyinstaller main.spec
 Do the above commands using terminal.(For both MacOS and Linux)
 
 [**Below is a much more detailed version**]:
-
+[**Do check on Google to find out how to install the packaged game to your system.**]
   [**Create the Executable**]:
   Navigate to your project directory in the terminal and run PyInstaller with the --onefile and --windowed options:
   ~~~
@@ -35,9 +35,7 @@ Do the above commands using terminal.(For both MacOS and Linux)
   **--onefile**: Bundles everything into a single executable file.
   
   **--windowed**: Creates a windowed application without a terminal window. Use --console if it's a console application.
-  
-  [**Do check on Google to find out how to install the packaged game to your system.**]
-
+  Once that is done, and Build is completed. Go to or 'cd' to your dist folder and you may run the main.app. (you may need to chmod[give permission to execute the app or sh)
 
 
 
