@@ -8,6 +8,11 @@ Make sure you have the below files in your .venv:
 
 You also need to make sure that you have pygame, pip and python installed.
 
+pip install pyinstaller
+pyinstaller --onefile --windowed main.py
+pyinstaller main.spec
+
+
 
 # Tile Check Flowchart
 Below is the flowchart for tile check:
