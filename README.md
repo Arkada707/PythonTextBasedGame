@@ -50,7 +50,7 @@ Below is the flowchart for tile check:
 
 
 # [Updates]:
-
+  [**0.0.1**]:
 - You can now go up and down Levels in the Dungeon.
 - You now start at the town.
 - More options for the player/user.
@@ -58,6 +58,14 @@ Below is the flowchart for tile check:
 - Attacks Improvement.
 - Exiting Dungeons are more easier now.
 - There is only 1 exit per level.
+
+
+  [**0.0.15**]:
+- Main Menu Added
+- Music Added and Applied
+- Settings and Start Game is now available
+- Settings for now is only to control the volume of the music.
+
 
 
 
