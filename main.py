@@ -7,12 +7,17 @@ from enemy import Enemy
 from tile import Tile
 
 pygame.init()
+pygame.mixer.init()
+
+# Load music
+pygame.mixer.music.load('music_ai_2024-6-10.wav')
+pygame.mixer.music.play(-1)  # Play the music in a loop
 
 # Screen settings
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption("Text-Based Game")
+pygame.display.set_caption("Tower of Trials")
 
 # Fonts
 font = pygame.font.Font(None, 36)
@@ -68,6 +73,75 @@ dungeon_level = 0
 player = Player(2, 2)
 display = Display(screen, font)
 current_enemy = None
+
+def main_menu():
+    title_font = pygame.font.Font(None, 74)
+    menu_font = pygame.font.Font(None, 50)
+    
+    title_text = title_font.render("Tower of Trials", True, (255, 255, 255))
+    start_text = menu_font.render("Start Game", True, (255, 255, 255))
+    settings_text = menu_font.render("Settings", True, (255, 255, 255))
+    
+    selected_option = 0
+    options = ["Start Game", "Settings"]
+
+    while True:
+        screen.fill((0, 0, 0))
+        screen.blit(title_text, (SCREEN_WIDTH // 2 - title_text.get_width() // 2, 100))
+        
+        for i, option in enumerate(options):
+            if i == selected_option:
+                text = menu_font.render(f"> {option}", True, (255, 255, 255))
+            else:
+                text = menu_font.render(option, True, (200, 200, 200))
+            screen.blit(text, (SCREEN_WIDTH // 2 - text.get_width() // 2, 250 + i * 60))
+        
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    selected_option = (selected_option - 1) % len(options)
+                elif event.key == pygame.K_DOWN:
+                    selected_option = (selected_option + 1) % len(options)
+                elif event.key == pygame.K_RETURN:
+                    if options[selected_option] == "Start Game":
+                        return "start_game"
+                    elif options[selected_option] == "Settings":
+                        return "settings"
+
+def settings_menu():
+    menu_font = pygame.font.Font(None, 50)
+    
+    volume = pygame.mixer.music.get_volume()
+    
+    while True:
+        screen.fill((0, 0, 0))
+        
+        volume_text = menu_font.render(f"Music Volume: {int(volume * 100)}%", True, (255, 255, 255))
+        screen.blit(volume_text, (SCREEN_WIDTH // 2 - volume_text.get_width() // 2, 250))
+        
+        back_text = menu_font.render("Back", True, (255, 255, 255))
+        screen.blit(back_text, (SCREEN_WIDTH // 2 - back_text.get_width() // 2, 350))
+        
+        pygame.display.flip()
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    volume = min(1, volume + 0.1)
+                    pygame.mixer.music.set_volume(volume)
+                elif event.key == pygame.K_DOWN:
+                    volume = max(0, volume - 0.1)
+                    pygame.mixer.music.set_volume(volume)
+                elif event.key == pygame.K_RETURN:
+                    return
 
 def encounter_enemy():
     global current_enemy
@@ -209,25 +283,38 @@ def process_input(option):
     display.update_display(player, game_map)
     return True
 
-running = True
+def main():
+    global game_map
+    while True:
+        action = main_menu()
+        if action == "start_game":
+            game_map = town_map
+            player.x, player.y = 2, 2  # Reset player position
+            break
+        elif action == "settings":
+            settings_menu()
 
-update_menu_options()
-# Main game loop
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RETURN:
-                if not process_input(display.get_selected_option()):
-                    running = False
-            elif event.key == pygame.K_UP:
-                display.move_menu_selection(-1)
-            elif event.key == pygame.K_DOWN:
-                display.move_menu_selection(1)
+    update_menu_options()
+    running = True
+    
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if not process_input(display.get_selected_option()):
+                        running = False
+                elif event.key == pygame.K_UP:
+                    display.move_menu_selection(-1)
+                elif event.key == pygame.K_DOWN:
+                    display.move_menu_selection(1)
 
-    display.update_display(player, game_map)
-    pygame.display.flip()
+        display.update_display(player, game_map)
+        pygame.display.flip()
 
-pygame.quit()
-sys.exit()
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
