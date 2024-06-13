@@ -10,7 +10,7 @@ pygame.init()
 pygame.mixer.init()
 
 # Load music
-pygame.mixer.music.load('music_ai_2024-6-10.wav')
+pygame.mixer.music.load('Dungeon Dive.wav')
 pygame.mixer.music.play(-1)  # Play the music in a loop
 
 # Screen settings
