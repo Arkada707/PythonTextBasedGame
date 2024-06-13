@@ -35,7 +35,13 @@ Do the above commands using terminal.(For both MacOS and Linux)
   **--onefile**: Bundles everything into a single executable file.
   
   **--windowed**: Creates a windowed application without a terminal window. Use --console if it's a console application.
-  Once that is done, and Build is completed. Go to or 'cd' to your dist folder and you may run the main.app. (you may need to chmod[give permission to execute the app or sh)
+
+  After the package is built. Add the music to the directory/location/folder of the executable file. For example: dist
+  Once that is done, Build is completed and music file is in the right directory/folder. Go to or 'cd' to your dist folder and you may run the main.app. (you may need to chmod[give permission to execute the app     or sh)
+
+  [Below is an example of how the folder should look like]:
+  
+  <img width="359" alt="Screenshot 2024-06-13 at 10 49 18" src="https://github.com/Arkada707/PythonTextBasedGame/assets/73377469/38a612a2-311d-4907-8880-2605dd1ca6d2">
 
 
 
